@@ -41,12 +41,13 @@
             <span class="font-bold text-lg tracking-tight dark:text-white transition-colors duration-300">I AM.</span>
         </div>
         <div class="hidden md:flex space-x-8 text-sm font-medium items-center">
-            <a href="index.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">홈</a>
-            <a href="about.html" class="text-light-textDark font-bold dark:text-white transition-colors hover:text-light-textDark dark:hover:text-white">소개</a>
-            <a href="education.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">교육</a>
-            <a href="experience.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">경험</a>
-            <a href="hobbies.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">취미</a>
-            <a href="guestbook.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">방명록</a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium items-center">
+            <a href="index.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors" data-ko="홈" data-en="Home">홈</a>
+            <a href="about.html" class="text-light-textDark font-bold dark:text-white transition-colors hover:text-light-textDark dark:hover:text-white" data-ko="소개" data-en="About">소개</a>
+            <a href="education.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors" data-ko="교육" data-en="Education">교육</a>
+            <a href="experience.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors" data-ko="경험" data-en="Experience">경험</a>
+            <a href="hobbies.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors" data-ko="취미" data-en="Hobbies">취미</a>
+            <a href="guestbook.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors" data-ko="방명록" data-en="Guestbook">방명록</a>
 
             <!-- 다국어 토글 버튼 -->
             <button id="lang-toggle" class="ml-4 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 font-bold text-xs hover:bg-light-primary hover:text-textDark dark:hover:bg-dark-primary dark:hover:text-slate-900 transition-colors shadow-sm">
@@ -66,7 +67,7 @@
         <section class="fade-in-up w-full">
             <div class="w-full bg-light-card dark:bg-dark-card p-8 sm:p-12 md:p-16 rounded-[2rem] clean-card border border-light-border dark:border-dark-border transition-colors duration-300">
                 <h2 class="text-3xl font-bold mb-10 dark:text-white flex items-center gap-3">
-                    <span class="text-3xl">👤</span> About Me
+                    <span class="text-3xl">👤</span> <span data-ko="About Me" data-en="About Me">About Me</span>
                 </h2>
                 
                 <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
@@ -81,19 +82,19 @@
                     <div class="text-center md:text-left mt-2 flex-grow w-full">
                         <div class="space-y-6 font-medium text-lg">
                             <div class="flex flex-col md:flex-row justify-between py-4 border-b border-light-border dark:border-dark-border transition-colors duration-300">
-                                <span class="text-light-textMuted dark:text-dark-textMuted mb-1 md:mb-0">이름</span>
-                                <span class="dark:text-white font-bold">김수현</span>
+                                <span class="text-light-textMuted dark:text-dark-textMuted mb-1 md:mb-0" data-ko="이름" data-en="Name">이름</span>
+                                <span class="dark:text-white font-bold" data-ko="김수현" data-en="Kim Suhyun">김수현</span>
                             </div>
                             <div class="flex flex-col md:flex-row justify-between py-4 border-b border-light-border dark:border-dark-border transition-colors duration-300">
-                                <span class="text-light-textMuted dark:text-dark-textMuted mb-1 md:mb-0">나이</span>
-                                <span class="dark:text-white">2003년생 (24세)</span>
+                                <span class="text-light-textMuted dark:text-dark-textMuted mb-1 md:mb-0" data-ko="나이" data-en="Age">나이</span>
+                                <span class="dark:text-white" data-ko="2003년생 (24세)" data-en="Born in 2003 (24 y/o)">2003년생 (24세)</span>
                             </div>
                             <div class="flex flex-col md:flex-row justify-between py-4 border-b border-light-border dark:border-dark-border transition-colors duration-300">
-                                <span class="text-light-textMuted dark:text-dark-textMuted mb-1 md:mb-0">거주지</span>
-                                <span class="dark:text-white">경상북도 구미 <span class="text-sm text-light-textMuted dark:text-dark-textMuted ml-2">(본가: 창원)</span></span>
+                                <span class="text-light-textMuted dark:text-dark-textMuted mb-1 md:mb-0" data-ko="거주지" data-en="Location">거주지</span>
+                                <span class="dark:text-white"><span data-ko="경상북도 구미" data-en="Gumi, Gyeongbuk">경상북도 구미</span> <span class="text-sm text-light-textMuted dark:text-dark-textMuted ml-2" data-ko="(본가: 창원)" data-en="(Hometown: Changwon)">(본가: 창원)</span></span>
                             </div>
                             <div class="flex flex-col md:flex-row justify-between py-4 border-b border-light-border dark:border-dark-border transition-colors duration-300">
-                                <span class="text-light-textMuted dark:text-dark-textMuted mb-1 md:mb-0">연락처</span>
+                                <span class="text-light-textMuted dark:text-dark-textMuted mb-1 md:mb-0" data-ko="연락처" data-en="Contact">연락처</span>
                                 <span class="dark:text-white">kes23529@naver.com</span>
                             </div>
                         </div>
@@ -104,8 +105,8 @@
                                 <p class="text-2xl font-bold dark:text-white">ISTJ</p>
                             </div>
                             <div class="bg-light-bg dark:bg-slate-900/50 p-6 rounded-2xl border border-light-primary/30 dark:border-dark-border text-center md:text-left transition-colors duration-300">
-                                <h4 class="text-sm text-light-textMuted dark:text-dark-textMuted font-medium mb-1">혈액형</h4>
-                                <p class="text-2xl font-bold dark:text-white">AB형</p>
+                                <h4 class="text-sm text-light-textMuted dark:text-dark-textMuted font-medium mb-1" data-ko="혈액형" data-en="Blood Type">혈액형</h4>
+                                <p class="text-2xl font-bold dark:text-white" data-ko="AB형" data-en="Type AB">AB형</p>
                             </div>
                         </div>
                     </div>
