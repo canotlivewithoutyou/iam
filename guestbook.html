@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I AM - 김수현 포트폴리오 | 방명록</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        light: { bg: '#FCFAEE', primary: '#FCEBA1', card: '#FFFFFF', textDark: '#1F2937', textMuted: '#6B7280', border: '#F3F4F6' },
+                        dark: { bg: '#0F172A', primary: '#FBBF24', card: '#1E293B', textDark: '#F8FAFC', textMuted: '#94A3B8', border: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="2"></circle></svg>') 12 12, auto; }
+        html { scroll-behavior: smooth; }
+        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+        .clean-card { transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03); }
+        .clean-card:hover { transform: translateY(-4px); box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.06); }
+        #scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(90deg, #FCEBA1, #FBBF24); z-index: 100; transition: width 0.1s ease; }
+        
+        /* 방명록 스크롤바 디자인 */
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #FCEBA1; border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #475569; }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col items-center selection:bg-light-primary selection:text-light-textDark bg-light-bg text-light-textDark dark:bg-dark-bg dark:text-dark-textDark transition-colors duration-300 min-h-screen">
+
+    <div id="scroll-progress"></div>
+
+    <!-- 네비게이션 바 -->
+    <nav class="w-full max-w-5xl px-6 py-4 mt-6 mx-4 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl flex justify-between items-center z-50 sticky top-4 border border-white/50 dark:border-slate-700/50 shadow-sm transition-all duration-300" id="navbar">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-light-primary dark:bg-dark-primary rounded-full flex items-center justify-center text-light-textDark dark:text-slate-900 font-bold text-sm transition-colors duration-300">S</div>
+            <span class="font-bold text-lg tracking-tight dark:text-white transition-colors duration-300">SSAFY 16th</span>
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-medium items-center">
+            <!-- 5개 페이지에서 수정하실 때 이곳을 참고하세요! 방명록이 추가되었습니다. -->
+            <a href="index.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors" data-ko="홈" data-en="Home">홈</a>
+            <a href="about.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors" data-ko="소개" data-en="About">소개</a>
+            <a href="education.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors" data-ko="교육" data-en="Education">교육</a>
+            <a href="experience.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors" data-ko="경험" data-en="Experience">경험</a>
+            <a href="hobbies.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors" data-ko="취미" data-en="Hobbies">취미</a>
+            <a href="guestbook.html" class="text-light-textDark font-bold dark:text-white transition-colors hover:text-light-textDark dark:hover:text-white" data-ko="방명록" data-en="Guestbook">방명록</a>
+            
+            <!-- 다국어 토글 버튼 -->
+            <button id="lang-toggle" class="ml-4 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 font-bold text-xs hover:bg-light-primary hover:text-textDark dark:hover:bg-dark-primary dark:hover:text-slate-900 transition-colors shadow-sm">
+                EN
+            </button>
+
+            <!-- 테마 토글 버튼 -->
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors focus:outline-none ml-2" aria-label="Toggle Dark Mode">
+                <svg id="theme-toggle-dark-icon" class="w-5 h-5 text-gray-700 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                <svg id="theme-toggle-light-icon" class="w-5 h-5 text-yellow-400 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 메인 컨테이너 -->
+    <main class="w-full max-w-5xl px-6 flex flex-col flex-grow gap-12 mt-12 md:mt-24 pb-32">
+        
+        <!-- 타이틀 섹션 -->
+        <div class="fade-in-up w-full text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 dark:text-white transition-colors duration-300" data-ko="방명록을 남겨주세요!" data-en="Leave a Message!">
+                방명록을 남겨주세요!
+            </h1>
+            <p class="text-light-textMuted dark:text-dark-textMuted font-medium text-lg" data-ko="여러분의 흔적과 따뜻한 응원을 기록하는 공간입니다." data-en="A space to record your footprints and warm cheers.">
+                여러분의 흔적과 따뜻한 응원을 기록하는 공간입니다.
+            </p>
+        </div>
+
+        <!-- 방명록 기능 섹션 -->
+        <section class="fade-in-up w-full max-w-3xl mx-auto">
+            <div class="bg-light-card dark:bg-dark-card p-6 md:p-10 rounded-[2rem] clean-card border border-light-border dark:border-dark-border transition-colors duration-300">
+                <!-- 입력 폼 -->
+                <form id="guestbook-form" class="flex flex-col gap-4 mb-10">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <input type="text" id="gb-name" data-ph-ko="이름을 입력하세요 (최대 10자)" data-ph-en="Your Name (Max 10 chars)" placeholder="이름을 입력하세요 (최대 10자)" required maxlength="10" 
+                               class="w-full md:w-1/3 px-5 py-4 rounded-xl border border-gray-200 dark:border-slate-600 bg-light-bg dark:bg-slate-800 text-light-textDark dark:text-white focus:outline-none focus:ring-2 focus:ring-light-primary transition-colors placeholder-gray-400 dark:placeholder-gray-500 font-medium">
+                        
+                        <input type="text" id="gb-msg" data-ph-ko="응원의 메시지나 인사를 남겨주세요!" data-ph-en="Leave a cheering message or greeting!" placeholder="응원의 메시지나 인사를 남겨주세요!" required maxlength="60"
+                               class="w-full md:w-2/3 px-5 py-4 rounded-xl border border-gray-200 dark:border-slate-600 bg-light-bg dark:bg-slate-800 text-light-textDark dark:text-white focus:outline-none focus:ring-2 focus:ring-light-primary transition-colors placeholder-gray-400 dark:placeholder-gray-500 font-medium">
+                    </div>
+                    
+                    <button type="submit" class="w-full py-4 mt-2 bg-light-primary dark:bg-dark-primary text-slate-900 font-bold rounded-xl hover:opacity-80 transition-opacity text-lg" data-ko="기록 남기기 📝" data-en="Post Message 📝">
+                        기록 남기기 📝
+                    </button>
+                </form>
+
+                <!-- 방명록 리스트 -->
+                <div id="guestbook-list" class="flex flex-col gap-5 max-h-[500px] overflow-y-auto custom-scrollbar pr-3">
+                    <!-- 자바스크립트로 리스트가 여기에 렌더링 됩니다. -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="w-full py-8 text-center text-gray-400 text-sm mt-auto">
+        <p data-ko="© 2026 Kim Suhyun. 모든 권리 보유." data-en="© 2026 Kim Suhyun. All rights reserved.">© 2026 Kim Suhyun. 모든 권리 보유.</p>
+    </footer>
+
+    <!-- 공통 스크립트 -->
+    <script>
+        // 1. 스크롤 진행률
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        };
+
+        // 2. 등장 애니메이션
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in-up').forEach((section) => { observer.observe(section); });
+
+        // 3. 다크모드
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // 4. 다국어 토글
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const translatableElements = document.querySelectorAll('[data-ko]');
+        const placeholderElements = document.querySelectorAll('[data-ph-ko]');
+        
+        let currentLang = localStorage.getItem('site-lang') || 'ko';
+
+        function updateLanguage(lang) {
+            translatableElements.forEach(el => { el.innerHTML = el.getAttribute(`data-${lang}`); });
+            placeholderElements.forEach(el => { el.setAttribute('placeholder', el.getAttribute(`data-ph-${lang}`)); });
+            langToggleBtn.textContent = lang === 'ko' ? 'EN' : 'KO';
+            localStorage.setItem('site-lang', lang);
+        }
+
+        langToggleBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'ko' ? 'en' : 'ko';
+            updateLanguage(currentLang);
+        });
+
+        updateLanguage(currentLang);
+
+        // 5. 방명록 로직 (localStorage)
+        const gbForm = document.getElementById('guestbook-form');
+        const gbName = document.getElementById('gb-name');
+        const gbMsg = document.getElementById('gb-msg');
+        const gbList = document.getElementById('guestbook-list');
+
+        function loadGuestbook() {
+            const entries = JSON.parse(localStorage.getItem('guestbook_entries') || '[]');
+            
+            if(entries.length === 0) {
+                gbList.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-10 opacity-50">
+                        <span class="text-4xl mb-4">✍️</span>
+                        <p class="text-center text-light-textMuted dark:text-dark-textMuted font-medium" data-ko="아직 작성된 방명록이 없습니다.<br>첫 번째로 인사를 남겨주세요!" data-en="No messages yet.<br>Be the first to say hello!">아직 작성된 방명록이 없습니다.<br>첫 번째로 인사를 남겨주세요!</p>
+                    </div>`;
+                updateLanguage(currentLang);
+                return;
+            }
+
+            gbList.innerHTML = entries.map(entry => `
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-700/40 border border-light-border dark:border-slate-600 shadow-sm flex flex-col gap-3 transition-colors duration-300 transform hover:-translate-y-1 hover:shadow-md">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-light-primary/30 dark:bg-slate-600 flex items-center justify-center text-lg shadow-inner">
+                                ${['🐰', '🐶', '🐱', '🐹', '🦊', '🐻', '🐼', '🐯', '🦁', '🐸'][Math.floor(Math.random() * 10)]}
+                            </div>
+                            <span class="font-bold text-lg text-light-textDark dark:text-white">${entry.name}</span>
+                        </div>
+                        <span class="text-xs font-semibold text-gray-500 bg-gray-100 dark:bg-slate-800 dark:text-gray-400 px-3 py-1.5 rounded-lg">${entry.date}</span>
+                    </div>
+                    <p class="text-light-textMuted dark:text-gray-200 font-medium leading-relaxed pl-13">${entry.message}</p>
+                </div>
+            `).join('');
+        }
+
+        gbForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const entries = JSON.parse(localStorage.getItem('guestbook_entries') || '[]');
+            const newEntry = {
+                name: gbName.value.trim(),
+                message: gbMsg.value.trim(),
+                date: new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+            };
+            
+            entries.unshift(newEntry); 
+            localStorage.setItem('guestbook_entries', JSON.stringify(entries));
+            
+            gbName.value = '';
+            gbMsg.value = '';
+            loadGuestbook();
+        });
+
+        loadGuestbook();
+    </script>
+</body>
+</html>
