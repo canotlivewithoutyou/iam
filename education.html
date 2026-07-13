@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I AM - 김수현 포트폴리오 | 교육</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        light: { bg: '#FCFAEE', primary: '#FCEBA1', card: '#FFFFFF', textDark: '#1F2937', textMuted: '#6B7280', border: '#F3F4F6' },
+                        dark: { bg: '#0F172A', primary: '#FBBF24', card: '#1E293B', textDark: '#F8FAFC', textMuted: '#94A3B8', border: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="2"></circle></svg>') 12 12, auto; }
+        html { scroll-behavior: smooth; }
+        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+        .clean-card { transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03); }
+        .clean-card:hover { transform: translateY(-4px); box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.06); }
+        #scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(90deg, #FCEBA1, #FBBF24); z-index: 100; transition: width 0.1s ease; }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col items-center selection:bg-light-primary selection:text-light-textDark bg-light-bg text-light-textDark dark:bg-dark-bg dark:text-dark-textDark transition-colors duration-300 min-h-screen">
+
+    <div id="scroll-progress"></div>
+
+    <!-- 네비게이션 바 -->
+    <nav class="w-full max-w-5xl px-6 py-4 mt-6 mx-4 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl flex justify-between items-center z-50 sticky top-4 border border-white/50 dark:border-slate-700/50 shadow-sm transition-all duration-300" id="navbar">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-light-primary dark:bg-dark-primary rounded-full flex items-center justify-center text-light-textDark dark:text-slate-900 font-bold text-sm transition-colors duration-300">I</div>
+            <span class="font-bold text-lg tracking-tight dark:text-white transition-colors duration-300">I AM.</span>
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-medium items-center">
+            <a href="index.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">홈</a>
+            <a href="about.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">소개</a>
+            <a href="education.html" class="text-light-textDark font-bold dark:text-white transition-colors hover:text-light-textDark dark:hover:text-white">교육</a>
+            <a href="experience.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">경험</a>
+            <a href="hobbies.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">취미</a>
+            <a href="guestbook.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">방명록</a>
+
+            <!-- 다국어 토글 버튼 -->
+            <button id="lang-toggle" class="ml-4 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 font-bold text-xs hover:bg-light-primary hover:text-textDark dark:hover:bg-dark-primary dark:hover:text-slate-900 transition-colors shadow-sm">
+                EN
+            </button>
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors focus:outline-none ml-4" aria-label="Toggle Dark Mode">
+                <svg id="theme-toggle-dark-icon" class="w-5 h-5 text-gray-700 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                <svg id="theme-toggle-light-icon" class="w-5 h-5 text-yellow-400 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 메인 컨테이너 -->
+    <main class="w-full max-w-5xl px-6 flex flex-col flex-grow gap-24 mt-12 md:mt-24 pb-32">
+        
+        <section class="fade-in-up w-full space-y-6">
+            <h2 class="text-3xl font-bold mb-8 dark:text-white flex items-center gap-3 ml-2">
+                <span class="text-3xl">🎓</span> Education & Activity
+            </h2>
+            
+            <!-- SSAFY -->
+            <div class="bg-light-card dark:bg-dark-card p-8 md:p-10 rounded-[2rem] clean-card border border-light-border dark:border-dark-border transition-colors duration-300">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-5 gap-4">
+                    <div>
+                        <h3 class="text-2xl font-bold dark:text-white transition-colors duration-300">SSAFY (삼성청년SW·AI아카데미)</h3>
+                        <p class="text-light-textMuted dark:text-dark-textMuted font-medium mt-1">16기 교육생</p>
+                    </div>
+                    <span class="text-sm font-semibold px-4 py-2 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-lg border border-yellow-100 dark:border-yellow-800/50 whitespace-nowrap">2026.07 ~ 진행 중</span>
+                </div>
+                <div class="text-light-textMuted dark:text-dark-textMuted font-medium leading-relaxed">
+                    <p>몰입도 높은 교육을 받으며 실무 역량을 키우고 있습니다. 16th 싸피인들 화이팅!</p>
+                </div>
+            </div>
+
+            <!-- 대학교 -->
+            <div class="bg-light-card dark:bg-dark-card p-8 md:p-10 rounded-[2rem] clean-card border border-light-border dark:border-dark-border transition-colors duration-300">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-5 gap-4">
+                    <div>
+                        <h3 class="text-2xl font-bold dark:text-white transition-colors duration-300">경상국립대학교</h3>
+                        <p class="text-light-textMuted dark:text-dark-textMuted font-medium mt-1">컴퓨터공학 전공</p>
+                    </div>
+                    <span class="text-sm font-semibold px-4 py-2 bg-gray-50 dark:bg-slate-800 text-gray-600 dark:text-gray-300 rounded-lg border border-gray-200 dark:border-slate-700 whitespace-nowrap">2022.03 ~ 2026.02 졸업</span>
+                </div>
+                <ul class="text-light-textMuted dark:text-dark-textMuted font-medium space-y-2 list-disc marker:text-gray-400 ml-5">
+                    <li>컴퓨터 공학 기초 지식 습득</li>
+                    <li>졸업 작품: LLM을 활용한 대학생 맞춤형 문제은행 서비스 'G-Learn-E' 개발</li>
+                </ul>
+            </div>
+
+            <!-- 대외활동 -->
+            <div class="bg-light-card dark:bg-dark-card p-8 md:p-10 rounded-[2rem] clean-card border border-light-border dark:border-dark-border mb-5 flex flex-col transition-colors duration-300">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-5 gap-4">
+                    <div>
+                        <h3 class="text-2xl font-bold dark:text-white transition-colors duration-300">한국장학재단 대학생 재능봉사캠프</h3>
+                        <p class="text-light-textMuted dark:text-dark-textMuted font-medium mt-1">31기, 32기 부팀장</p>
+                    </div>
+                    <span class="text-sm font-semibold px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg border border-blue-100 dark:border-blue-800/50 whitespace-nowrap">대외활동</span>
+                </div>
+                <div class="text-light-textMuted dark:text-dark-textMuted font-medium leading-relaxed">
+                    <p>농어촌 소외지역 학생들을 대상으로 교육 봉사를 기획하고 진행했습니다. 부팀장으로서 팀원 간의 의견을 조율하고 성공적으로 캠프를 이끌며 커뮤니케이션 능력과 리더십을 길렀습니다.</p>
+                </div>
+            </div>
+
+            <!-- 해외개척프로그램(GPP) -->
+            <div class="bg-light-card dark:bg-dark-card p-8 md:p-10 rounded-[2rem] clean-card border border-light-border dark:border-dark-border mb-5 flex flex-col transition-colors duration-300">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-5 gap-4">
+                    <div>
+                        <h3 class="text-2xl font-bold dark:text-white transition-colors duration-300">2025학년도 동계 해외개척프로그램(GPP)</h3>
+                        <p class="text-light-textMuted dark:text-dark-textMuted font-medium mt-1">'WITH' 팀 / 유럽 4개국 (독일, 프랑스, 영국, 스위스) 탐방</p>
+                    </div>
+                    <span class="text-sm font-semibold px-4 py-2 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg border border-purple-100 dark:border-purple-800/50 whitespace-nowrap">해외탐방</span>
+                </div>
+                <ul class="text-light-textMuted dark:text-dark-textMuted font-medium space-y-2 list-disc marker:text-gray-400 ml-5">
+                    <li>주제: 전자 폐기물(E-waste) 문제 해결을 위한 AI 로봇 기반 자동화 재활용 기술 탐구</li>
+                    <li>유럽의 선진 WEEE 지침 기반 정책 및 순환경제 시스템 조사, AI 비전 및 로봇 자동화 공정 현장 분석</li>
+                    <li>팀장으로서 12박 14일 탐방 기획, 스위스 취리히 공대 등 해외 기관 컨택 및 현지 인터뷰 조율 등 전 과정 총괄</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="w-full py-8 text-center text-gray-400 text-sm mt-auto">
+        <p>© 2026 Kim Suhyun. All rights reserved.</p>
+    </footer>
+
+    <!-- 공통 스크립트 -->
+    <script>
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        };
+
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in-up').forEach((section) => { observer.observe(section); });
+
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // 4. 다국어 토글
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const translatableElements = document.querySelectorAll('[data-ko]');
+        const placeholderElements = document.querySelectorAll('[data-ph-ko]');
+        
+        let currentLang = localStorage.getItem('site-lang') || 'ko';
+
+        function updateLanguage(lang) {
+            translatableElements.forEach(el => { el.innerHTML = el.getAttribute(`data-${lang}`); });
+            placeholderElements.forEach(el => { el.setAttribute('placeholder', el.getAttribute(`data-ph-${lang}`)); });
+            langToggleBtn.textContent = lang === 'ko' ? 'EN' : 'KO';
+            localStorage.setItem('site-lang', lang);
+        }
+
+        langToggleBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'ko' ? 'en' : 'ko';
+            updateLanguage(currentLang);
+        });
+
+        updateLanguage(currentLang);
+    </script>
+</body>
+</html>

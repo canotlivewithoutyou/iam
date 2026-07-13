@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I AM - 김수현 포트폴리오 | 경험</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        light: { bg: '#FCFAEE', primary: '#FCEBA1', card: '#FFFFFF', textDark: '#1F2937', textMuted: '#6B7280', border: '#F3F4F6' },
+                        dark: { bg: '#0F172A', primary: '#FBBF24', card: '#1E293B', textDark: '#F8FAFC', textMuted: '#94A3B8', border: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="2"></circle></svg>') 12 12, auto; }
+        html { scroll-behavior: smooth; }
+        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+        .clean-card { transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03); }
+        .clean-card:hover { transform: translateY(-4px); box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.06); }
+        #scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(90deg, #FCEBA1, #FBBF24); z-index: 100; transition: width 0.1s ease; }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col items-center selection:bg-light-primary selection:text-light-textDark bg-light-bg text-light-textDark dark:bg-dark-bg dark:text-dark-textDark transition-colors duration-300 min-h-screen">
+
+    <div id="scroll-progress"></div>
+
+    <!-- 네비게이션 바 -->
+    <nav class="w-full max-w-5xl px-6 py-4 mt-6 mx-4 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl flex justify-between items-center z-50 sticky top-4 border border-white/50 dark:border-slate-700/50 shadow-sm transition-all duration-300" id="navbar">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-light-primary dark:bg-dark-primary rounded-full flex items-center justify-center text-light-textDark dark:text-slate-900 font-bold text-sm transition-colors duration-300">I</div>
+            <span class="font-bold text-lg tracking-tight dark:text-white transition-colors duration-300">I AM.</span>
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-medium items-center">
+            <a href="index.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">홈</a>
+            <a href="about.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">소개</a>
+            <a href="education.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">교육</a>
+            <a href="experience.html" class="text-light-textDark font-bold dark:text-white transition-colors hover:text-light-textDark dark:hover:text-white">경험</a>
+            <a href="hobbies.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">취미</a>
+            <a href="guestbook.html" class="text-light-textMuted dark:text-dark-textMuted hover:text-light-textDark dark:hover:text-white transition-colors">방명록</a>
+
+            <!-- 다국어 토글 버튼 -->
+            <button id="lang-toggle" class="ml-4 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 font-bold text-xs hover:bg-light-primary hover:text-textDark dark:hover:bg-dark-primary dark:hover:text-slate-900 transition-colors shadow-sm">
+                EN
+            </button>
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors focus:outline-none ml-4" aria-label="Toggle Dark Mode">
+                <svg id="theme-toggle-dark-icon" class="w-5 h-5 text-gray-700 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                <svg id="theme-toggle-light-icon" class="w-5 h-5 text-yellow-400 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 메인 컨테이너 -->
+    <main class="w-full max-w-5xl px-6 flex flex-col flex-grow gap-24 mt-12 md:mt-24 pb-32">
+        
+        <!-- 아르바이트 및 다양한 경험 -->
+        <section class="fade-in-up w-full">
+            <div class="mb-10 ml-2">
+                <h2 class="text-3xl font-bold dark:text-white flex items-center gap-3 mb-3">
+                    <span class="text-3xl">💼</span> Work Experience
+                </h2>
+                <p class="text-light-textMuted dark:text-dark-textMuted font-medium leading-relaxed">
+                    <span class="font-bold dark:text-white">"안 해본 아르바이트가 없습니다!"</span><br>
+                    카페부터 대학 기관, 선거캠프까지 다양한 실전 경험을 통해 어디서든 빠르게 적응하는 능력과 책임감을 길렀습니다.
+                </p>
+            </div>
+
+            <!-- 경험 카드 그리드 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                
+                <!-- 1. 선거캠프 -->
+                <div class="bg-light-card dark:bg-dark-card p-6 rounded-2xl clean-card border border-light-border dark:border-dark-border flex flex-col h-full group transition-colors duration-300">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl bg-light-bg dark:bg-slate-700 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-sm">🗳️</span>
+                        <h3 class="font-bold text-lg dark:text-white leading-tight">선거캠프</h3>
+                    </div>
+                    <p class="text-sm text-light-textMuted dark:text-dark-textMuted mb-5 ml-1 flex-grow">디자인 및 회계</p>
+                    <span class="text-[12px] font-semibold px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md border border-blue-100 dark:border-blue-800/50 w-max">2026.03 ~ 2026.06</span>
+                </div>
+
+                <!-- 2. 메가커피 -->
+                <div class="bg-light-card dark:bg-dark-card p-6 rounded-2xl clean-card border border-light-border dark:border-dark-border flex flex-col h-full group transition-colors duration-300">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl bg-light-bg dark:bg-slate-700 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-sm">☕</span>
+                        <h3 class="font-bold text-lg dark:text-white leading-tight">메가커피</h3>
+                    </div>
+                    <p class="text-sm text-light-textMuted dark:text-dark-textMuted mb-4 ml-1 flex-grow">음료 제조 및 고객 응대</p>
+                    <div class="flex flex-col gap-1.5">
+                        <span class="text-[11px] font-semibold px-2.5 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-md border border-yellow-100 dark:border-yellow-800/50 w-max">25.08 ~ 26.02</span>
+                        <span class="text-[11px] font-semibold px-2.5 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-md border border-yellow-100 dark:border-yellow-800/50 w-max">21.11 ~ 22.06</span>
+                    </div>
+                </div>
+
+                <!-- 3. 경상국립대 입학처 -->
+                <div class="bg-light-card dark:bg-dark-card p-6 rounded-2xl clean-card border border-light-border dark:border-dark-border flex flex-col h-full group transition-colors duration-300">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl bg-light-bg dark:bg-slate-700 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-sm">🏫</span>
+                        <h3 class="font-bold text-lg dark:text-white leading-tight">경상국립대<br>입학처</h3>
+                    </div>
+                    <p class="text-sm text-light-textMuted dark:text-dark-textMuted mb-5 ml-1 flex-grow">교내 근로장학생</p>
+                    <span class="text-[12px] font-semibold px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-md border border-indigo-100 dark:border-indigo-800/50 w-max">2024.12 ~ 2025.02</span>
+                </div>
+
+                <!-- 4. 맥도날드 -->
+                <div class="bg-light-card dark:bg-dark-card p-6 rounded-2xl clean-card border border-light-border dark:border-dark-border flex flex-col h-full group transition-colors duration-300">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl bg-light-bg dark:bg-slate-700 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-sm">🍔</span>
+                        <h3 class="font-bold text-lg dark:text-white leading-tight">맥도날드</h3>
+                    </div>
+                    <p class="text-sm text-light-textMuted dark:text-dark-textMuted mb-5 ml-1 flex-grow">크루 (매장 관리 및 조리)</p>
+                    <span class="text-[12px] font-semibold px-3 py-1.5 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-md border border-red-100 dark:border-red-800/50 w-max">2024.08 ~ 2025.04</span>
+                </div>
+
+                <!-- 5. 경상국립대 실험실습관 -->
+                <div class="bg-light-card dark:bg-dark-card p-6 rounded-2xl clean-card border border-light-border dark:border-dark-border flex flex-col h-full group transition-colors duration-300">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl bg-light-bg dark:bg-slate-700 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-sm">🔬</span>
+                        <h3 class="font-bold text-lg dark:text-white leading-tight">공학실험<br>실습관</h3>
+                    </div>
+                    <p class="text-sm text-light-textMuted dark:text-dark-textMuted mb-5 ml-1 flex-grow">교내 근로장학생</p>
+                    <span class="text-[12px] font-semibold px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-md border border-indigo-100 dark:border-indigo-800/50 w-max">2023.06 ~ 2023.09</span>
+                </div>
+
+                <!-- 6. 개인카페 -->
+                <div class="bg-light-card dark:bg-dark-card p-6 rounded-2xl clean-card border border-light-border dark:border-dark-border flex flex-col h-full group transition-colors duration-300">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl bg-light-bg dark:bg-slate-700 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-sm">🍵</span>
+                        <h3 class="font-bold text-lg dark:text-white leading-tight">개인카페</h3>
+                    </div>
+                    <p class="text-sm text-light-textMuted dark:text-dark-textMuted mb-5 ml-1 flex-grow">음료 제조 및 고객 응대</p>
+                    <span class="text-[12px] font-semibold px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-md border border-yellow-100 dark:border-yellow-800/50 w-max">2022.11 ~ 2024.08</span>
+                </div>
+
+                <!-- 7. 고깃집 -->
+                <div class="bg-light-card dark:bg-dark-card p-6 rounded-2xl clean-card border border-light-border dark:border-dark-border flex flex-col h-full group transition-colors duration-300">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl bg-light-bg dark:bg-slate-700 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-sm">🥩</span>
+                        <h3 class="font-bold text-lg dark:text-white leading-tight">고깃집</h3>
+                    </div>
+                    <p class="text-sm text-light-textMuted dark:text-dark-textMuted mb-5 ml-1 flex-grow">홀 서빙 및 매장 관리</p>
+                    <span class="text-[12px] font-semibold px-3 py-1.5 bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 rounded-md border border-rose-100 dark:border-rose-800/50 w-max">2022.08 ~ 2023.01</span>
+                </div>
+
+                <!-- 8. 편의점 -->
+                <div class="bg-light-card dark:bg-dark-card p-6 rounded-2xl clean-card border border-light-border dark:border-dark-border flex flex-col h-full group transition-colors duration-300">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl bg-light-bg dark:bg-slate-700 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-sm">🏪</span>
+                        <h3 class="font-bold text-lg dark:text-white leading-tight">편의점</h3>
+                    </div>
+                    <p class="text-sm text-light-textMuted dark:text-dark-textMuted mb-5 ml-1 flex-grow">매장 관리 및 고객 응대</p>
+                    <span class="text-[12px] font-semibold px-3 py-1.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-md border border-emerald-100 dark:border-emerald-800/50 w-max">2022.06 ~ 2022.09</span>
+                </div>
+
+                <!-- 9. 브런치카페 -->
+                <div class="bg-light-card dark:bg-dark-card p-6 rounded-2xl clean-card border border-light-border dark:border-dark-border flex flex-col h-full group transition-colors duration-300">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl bg-light-bg dark:bg-slate-700 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-sm">🥗</span>
+                        <h3 class="font-bold text-lg dark:text-white leading-tight">브런치카페</h3>
+                    </div>
+                    <p class="text-sm text-light-textMuted dark:text-dark-textMuted mb-5 ml-1 flex-grow">조리 보조 및 서빙</p>
+                    <span class="text-[12px] font-semibold px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-md border border-yellow-100 dark:border-yellow-800/50 w-max">2022.03 ~ 2022.10</span>
+                </div>
+
+                <!-- 10. 와플대학 -->
+                <div class="bg-light-card dark:bg-dark-card p-6 rounded-2xl clean-card border border-light-border dark:border-dark-border flex flex-col h-full group transition-colors duration-300">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl bg-light-bg dark:bg-slate-700 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-sm">🧇</span>
+                        <h3 class="font-bold text-lg dark:text-white leading-tight">와플대학</h3>
+                    </div>
+                    <p class="text-sm text-light-textMuted dark:text-dark-textMuted mb-5 ml-1 flex-grow">디저트 제조 및 판매</p>
+                    <span class="text-[12px] font-semibold px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-md border border-yellow-100 dark:border-yellow-800/50 w-max">2021.11 ~ 2022.06</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 히든 스펙 (마인크래프트) -->
+        <section class="fade-in-up w-full">
+            <!-- 박스 바깥 좌측 상단 타이틀 -->
+            <div class="mb-10 ml-2">
+                <h2 class="text-3xl font-bold dark:text-white flex items-center gap-3 mb-3">
+                    <span class="text-3xl">⛏️</span> Hidden Spec
+                </h2>
+                <p class="text-light-textMuted dark:text-dark-textMuted font-medium leading-relaxed">
+                    <span class="font-bold dark:text-white">"[ 마인크래프트 야생 생존 ]"</span><br>
+                    왼손으로 밥먹고 오른손으로 드래곤 잡았습니다. 무(無)에서 유(有)를 창조하는 지독한 근성을 보여줍니다.
+                </p>
+            </div>
+
+            <!-- 전체 테마에 맞춘 밝은 톤의 마인크래프트 카드 -->
+            <div class="bg-light-card dark:bg-dark-card rounded-[2rem] clean-card border border-light-border dark:border-dark-border p-8 md:p-12 relative overflow-hidden shadow-sm transition-colors duration-300">
+                
+                <div class="relative z-10 w-full max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- 밝은 톤의 개별 스탯 카드 -->
+                        <div class="bg-light-bg dark:bg-slate-900/50 border border-light-primary/30 dark:border-dark-border rounded-2xl p-6 transform hover:-translate-y-2 transition-transform shadow-sm group text-center duration-300">
+                            <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🐉</div>
+                            <div class="text-light-textMuted dark:text-dark-textMuted text-sm font-bold mb-1">엔더드래곤 처치</div>
+                            <div class="text-3xl font-black text-indigo-600 dark:text-indigo-400">100+ <span class="text-lg text-gray-400 font-medium">마리</span></div>
+                        </div>
+                        
+                        <div class="bg-light-bg dark:bg-slate-900/50 border border-light-primary/30 dark:border-dark-border rounded-2xl p-6 transform hover:-translate-y-2 transition-transform shadow-sm group text-center duration-300">
+                            <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">💎</div>
+                            <div class="text-light-textMuted dark:text-dark-textMuted text-sm font-bold mb-1">다이아몬드 발굴</div>
+                            <div class="text-3xl font-black text-cyan-600 dark:text-cyan-400">1,000+ <span class="text-lg text-gray-400 font-medium">개</span></div>
+                        </div>
+                        
+                        <div class="bg-light-bg dark:bg-slate-900/50 border border-light-primary/30 dark:border-dark-border rounded-2xl p-6 transform hover:-translate-y-2 transition-transform shadow-sm group text-center duration-300">
+                            <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">💣</div>
+                            <div class="text-light-textMuted dark:text-dark-textMuted text-sm font-bold mb-1">크리퍼 암살 생존율</div>
+                            <div class="text-3xl font-black text-emerald-600 dark:text-emerald-400">99.9%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 text-center">
+                        <p class="text-gray-600 dark:text-gray-300 font-semibold text-sm bg-gray-50 dark:bg-slate-800 inline-block px-6 py-3 rounded-full border border-gray-100 dark:border-slate-700 transition-colors duration-300">
+                            "마인크래프트 하실분 mm 부탁드립니다 💬"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="w-full py-8 text-center text-gray-400 text-sm mt-auto">
+        <p>© 2026 Kim Suhyun. All rights reserved.</p>
+    </footer>
+
+    <!-- 공통 스크립트 -->
+    <script>
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        };
+
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in-up').forEach((section) => { observer.observe(section); });
+
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // 4. 다국어 토글
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const translatableElements = document.querySelectorAll('[data-ko]');
+        const placeholderElements = document.querySelectorAll('[data-ph-ko]');
+        
+        let currentLang = localStorage.getItem('site-lang') || 'ko';
+
+        function updateLanguage(lang) {
+            translatableElements.forEach(el => { el.innerHTML = el.getAttribute(`data-${lang}`); });
+            placeholderElements.forEach(el => { el.setAttribute('placeholder', el.getAttribute(`data-ph-${lang}`)); });
+            langToggleBtn.textContent = lang === 'ko' ? 'EN' : 'KO';
+            localStorage.setItem('site-lang', lang);
+        }
+
+        langToggleBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'ko' ? 'en' : 'ko';
+            updateLanguage(currentLang);
+        });
+
+        updateLanguage(currentLang);
+    </script>
+</body>
+</html>
